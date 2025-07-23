@@ -1,1 +1,87 @@
-hello
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rent Traditional Clothes</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f9f9f9; }
+    .item { border: 1px solid #ccc; margin: 10px 0; padding: 10px; border-radius: 10px; background: white; }
+    img { width: 150px; border-radius: 10px; }
+    .booking-list { margin-top: 30px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { padding: 8px; border: 1px solid #aaa; text-align: left; }
+    button { padding: 6px 12px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background: #0056b3; }
+  </style>
+</head>
+<body onload="displayBookings()">
+
+  <h1>Traditional Clothes for Rent</h1>
+
+  <div class="item">
+    <h3>Baju Kadazan</h3>
+    <img src="images/kadazan.jpg" alt="Baju Kadazan">
+    <p>Price: RM50</p>
+    <button onclick="rent(1, 'Baju Kadazan')">Rent</button>
+  </div>
+
+  <div class="item">
+    <h3>Baju Iban</h3>
+    <img src="images/iban.jpg" alt="Baju Iban">
+    <p>Price: RM60</p>
+    <button onclick="rent(2, 'Baju Iban')">Rent</button>
+  </div>
+
+  <div class="item">
+    <h3>Baju Dusun</h3>
+    <img src="images/dusun.jpg" alt="Baju Dusun">
+    <p>Price: RM55</p>
+    <button onclick="rent(3, 'Baju Dusun')">Rent</button>
+  </div>
+
+  <div class="booking-list" id="bookingList">
+    <h2>Your Bookings</h2>
+    <table>
+      <thead>
+        <tr><th>Name</th><th>Clothes</th><th>Time</th></tr>
+      </thead>
+      <tbody id="bookingTableBody"></tbody>
+    </table>
+  </div>
+
+  <script>
+    function rent(id, name) {
+      const user = prompt(`Enter your name to rent ${name}:`);
+      if (!user) return;
+
+      const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+
+      bookings.push({
+        name: user,
+        clothes: name,
+        time: new Date().toLocaleString()
+      });
+
+      localStorage.setItem('bookings', JSON.stringify(bookings));
+      alert('Booking saved in browser!');
+      displayBookings();
+    }
+
+    function displayBookings() {
+      const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+      const tableBody = document.getElementById('bookingTableBody');
+      tableBody.innerHTML = '';
+
+      bookings.forEach(b => {
+        const row = `<tr>
+          <td>${b.name}</td>
+          <td>${b.clothes}</td>
+          <td>${b.time}</td>
+        </tr>`;
+        tableBody.innerHTML += row;
+      });
+    }
+  </script>
+
+</body>
+</html>
