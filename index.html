@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wakasku - Sewa Pakaian Tradisional</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Moment.js -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+
+<!-- Daterangepicker JS -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+</head>
+<body style="background-color:#D44F27">
+
+    <nav class="navbar navbar-expand-lg navbar-light ">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="#!"><img class="card-img-top" src="logo_elob.jpeg" alt="..." style="height: 30px"/></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#!">All Products</a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                            <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#cartModal" onclick="showCart()">
+                    <i class="bi-cart-fill me-1"></i>
+                    Cart
+                    <span class="badge bg-dark text-white ms-1 rounded-pill" id="totalcart">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="text-center position-relative" style="
+  background-image: url('logo_kawas.jpeg');
+  background-size: auto 120%;
+  background-repeat: no-repeat;
+  background-position: 70% center;
+  background-color: #DCD8D3;
+  height: 500px;">
+  
+  <div class="container h-100 d-flex align-items-center justify-content-start">
+    <div class=" p-4 rounded-4 shadow" style="background-color:#D44F27;width: 100%; max-width: 400px; ">
+     
+
+      <form action="search.html" method="GET" class="d-grid gap-3">
+
+        <!-- Lokasi -->
+        <div class="form-floating">
+          <input type="text" name="location" id="location" class="form-control rounded-3" placeholder="Kota Kinabalu" required>
+          <label for="location">Location</label>
+        </div>
+      
+        <!-- Saiz -->
+        <div class="form-floating">
+          <select name="size" id="size" class="form-select rounded-3" required>
+            <option value="" disabled selected></option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+          </select>
+          <label for="size">Saiz</label>
+        </div>
+
+       
+      
+        <!-- Tarikh Mula -->
+        <div class="form-floating">
+          <input type="text" name="daterange" id="daterange" class="form-control rounded-3" placeholder="Rental Dates" required>
+          <label for="start_date">Rental Dates</label>
+        </div>
+      
+        <!-- Button -->
+        <button type="submit" class="bg-dark btn btn-lg text-white rounded-3" >
+          <i class="bi bi-search me-1"></i> Search
+        </button>
+      
+      </form>
+
+      
+    </div>
+  </div>
+</header>
+
+
+<section class="py-5" style="background-color: #D44F27;">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row justify-content-center">
+            <div class="col md-3">
+                <div class="card h-100" style="background-color:transparent">
+                    <!-- Product image-->
+                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                    <img class="card-img-top" src="baju.jpeg" style="width: 100%;
+                    height: 200px; /* or any fixed height you want */
+                    object-fit: cover;" />
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">Sinuangga</h5>
+
+                            <div class="d-flex justify-content-center small text-warning mb-2">
+                              <div class="bi-star-fill"></div>
+                              <div class="bi-star-fill"></div>
+                              <div class="bi-star-fill"></div>
+                              <div class="bi-star-fill"></div>
+                              <div class="bi-star-fill"></div>
+                          </div>
+                            <!-- Product price-->
+                            <span class="text-muted text-decoration-line-through">RM100</span>
+                            RM 98 / 1 DAY
+                        </div>
+                        <div class="text-center"><button class="btn btn-lg text-white rounded-3 "
+                          onclick="openModal('Sinuangga', 98)"><i style="color:black" class="bi bi-cart-plus"></i></button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col md-3">
+              <div class="card h-100" style="background-color:transparent">
+                  <!-- Product image-->
+                  <img class="card-img-top" src="https://dummyimage.com/450x300/d9d9d9/fafafa&text=+" style="width: 100%;
+                  height: 200px; /* or any fixed height you want */
+                  object-fit: cover;" />
+                  <!-- Product details-->
+                  <div class="card-body p-4">
+                      <div class="text-center">
+                          <!-- Product name-->
+                          <h5 class="fw-bolder">Gaung</h5>
+
+                          <div class="d-flex justify-content-center small text-warning mb-2">
+                            <div class="bi-star-fill"></div>
+                            <div class="bi-star-fill"></div>
+                            <div class="bi-star-fill"></div>
+                            <div class="bi-star-fill"></div>
+                            <div class="bi-star-fill"></div>
+                        </div>
+                          <!-- Product price-->
+                          RM 100 / 1 DAY
+                      </div>
+                      <div class="text-center"><button class="btn btn-lg text-white rounded-3 "
+                        onclick="openModal('Gaung', 100)"><i style="color:black" class="bi bi-cart-plus"></i></button></div>
+                  </div>
+              </div>
+          </div>
+          <div class="col md-3">
+            <div class="card h-100" style="background-color:transparent">
+                <!-- Product image-->
+                <img class="card-img-top" src="https://dummyimage.com/450x300/d9d9d9/fafafa&text=+" style="width: 100%;
+                height: 200px; /* or any fixed height you want */
+                object-fit: cover;" />
+                <!-- Product details-->
+                <div class="card-body p-4">
+                    <div class="text-center">
+                        <!-- Product name-->
+                        <h5 class="fw-bolder">Tinohian</h5>
+
+                        <div class="d-flex justify-content-center small text-warning mb-2">
+                          <div class="bi-star-fill"></div>
+                          <div class="bi-star-fill"></div>
+                          <div class="bi-star-fill"></div>
+                          <div class="bi-star-fill"></div>
+                          <div class="bi-star-fill"></div>
+                      </div>
+                        <!-- Product price-->
+                        RM 100 / 1 DAY
+                    </div>
+                    <div class="text-center"><button class="btn btn-lg text-white rounded-3 "
+                      onclick="openModal('Tinohian', 100)"><i style="color:black" class="bi bi-cart-plus"></i></button></div>
+                </div>
+            </div>
+        </div>
+        <div class="col md-3">
+          <div class="card h-100" style="background-color:transparent">
+              <!-- Product image-->
+              <img class="card-img-top" src="https://dummyimage.com/450x300/d9d9d9/fafafa&text=+" style="width: 100%;
+              height: 200px; /* or any fixed height you want */
+              object-fit: cover;" />
+              <!-- Product details-->
+              <div class="card-body p-4">
+                  <div class="text-center">
+                      <!-- Product name-->
+                      <h5 class="fw-bolder">Gonob</h5>
+
+                      <div class="d-flex justify-content-center small text-warning mb-2">
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
+                        <div class="bi-star-fill"></div>
+                    </div>
+                      <!-- Product price-->
+                      RM 100 / 1 DAY
+                  </div>
+                  <div class="text-center"><button class="btn btn-lg text-white rounded-3 "
+                    onclick="openModal('Gonob', 100)"><i style="color:black" class="bi bi-cart-plus"></i></button></div>
+              </div>
+          </div>
+      </div>
+        </div>
+    </div>
+</section>
+
+  
+<script>
+    $(function() {
+      $('#daterange').daterangepicker({
+        opens: 'right',
+        locale: {
+          format: 'YYYY-MM-DD',
+          daysOfWeek: ['Ahad', 'Isn', 'Sel', 'Rab', 'Kha', 'Jum', 'Sab'],
+          monthNames: ['Jan', 'Feb', 'Mac', 'Apr', 'Mei', 'Jun', 'Jul', 'Ogo', 'Sep', 'Okt', 'Nov', 'Dis']
+        }
+      });
+    });
+  </script>
+<footer class="text-center py-4 mt-5 bg-light text-white">
+  <div class="container">
+    <small>&copy; 2025 Wakasku. Semua Hak Cipta Terpelihara.</small>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+<script>
+    const kawascart = JSON.parse(localStorage.getItem("kawascart") || "[]");
+
+    document.getElementById("totalcart").textContent = kawascart.length;
+    let currentProduct = {};
+  
+    function openModal(name, price) {
+        currentProduct = { name, price };
+        document.getElementById("modalProductName").textContent = name;
+        const modal = new bootstrap.Modal(document.getElementById('addToCartModal'));
+        modal.show();
+        
+    }
+
+    $('.modal').on('shown.bs.modal', function () {
+      $('#daterange').daterangepicker({
+      opens: 'right',
+      locale: {
+        format: 'YYYY-MM-DD',
+        daysOfWeek: ['Ahad', 'Isn', 'Sel', 'Rab', 'Kha', 'Jum', 'Sab'],
+        monthNames: ['Jan', 'Feb', 'Mac', 'Apr', 'Mei', 'Jun', 'Jul', 'Ogo', 'Sep', 'Okt', 'Nov', 'Dis']
+      }
+    });
+  });
+  
+    function addToCart() {
+      const size = document.getElementById("productSize").value;
+      const duration = document.getElementById("daterange").value;
+      const cart = JSON.parse(localStorage.getItem("kawascart")) || [];
+  
+      cart.push({
+        name: currentProduct.name,
+        price: currentProduct.price,
+        size,
+        duration
+      });
+  
+      localStorage.setItem("kawascart", JSON.stringify(cart));
+      alert("Added to cart!");
+      const modal = bootstrap.Modal.getInstance(document.getElementById('addToCartModal'));
+      modal.hide();
+      document.getElementById("totalcart").textContent = JSON.parse(localStorage.getItem("kawascart") || "[]").length;
+    }
+
+    function showCart() {
+    const cart = JSON.parse(localStorage.getItem("kawascart") || "[]");
+    const cartItems = document.getElementById("cartItems");
+    const cartTotal = document.getElementById("cartTotal");
+
+    cartItems.innerHTML = "";
+    let total = 0;
+
+    if (cart.length === 0) {
+      cartItems.innerHTML = "<p class='text-muted'>Your cart is empty.</p>";
+      cartTotal.textContent = "";
+      return;
+    }
+
+    cart.forEach((item, index) => {
+      const itemTotal = item.price * item.duration;
+      total += itemTotal;
+
+      cartItems.innerHTML += `
+        <div class="border-bottom pb-2 mb-3">
+          <h6>${item.name}</h6>
+          <p class="mb-1"><strong>Size:</strong> ${item.size}</p>
+          <p class="mb-1"><strong>Duration:</strong> ${item.duration} day(s)</p>
+          <p class="mb-1"><strong>Price:</strong> RM${item.price} x ${item.duration} = RM${itemTotal}</p>
+          <button class="btn btn-sm btn-danger" onclick="removeFromCart(${index})">Remove</button>
+        </div>
+      `;
+    });
+
+    cartTotal.textContent = `Total: RM${total}`;
+  }
+
+  function removeFromCart(index) {
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    showCart();
+    updateCartItemCount(); // if you show count elsewhere
+  }
+
+</script>
