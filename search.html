@@ -31,7 +31,7 @@
             <option value="L">L</option><option value="XL">XL</option>
           </select>
           <label for="start_date">Rental Dates</label>
-          <input type="text" name="daterange" id="daterange" class="form-control rounded-3" placeholder="Rental Dates" required>
+          <input  type="text" name="daterange" id="daterange" class="form-control rounded-3" placeholder="Rental Dates" required>
           
         </div>
         <div class="modal-footer">
@@ -67,7 +67,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
@@ -278,21 +278,29 @@
     }
 
     cart.forEach((item, index) => {
-      const itemTotal = item.price * item.duration;
-      total += itemTotal;
+      let rentdates= item.duration;
+      let [startStr, endStr] = rentdates.split(" - ");
 
+      // 2. Convert to moment objects
+      let start = moment(startStr, "YYYY-MM-DD");
+      let end = moment(endStr, "YYYY-MM-DD");
+
+      // 3. Calculate duration (inclusive)
+      const duration = end.diff(start, 'days') + 1;
+      const itemTotal = item.price * duration;
+      total += itemTotal;
       cartItems.innerHTML += `
         <div class="border-bottom pb-2 mb-3">
           <h6>${item.name}</h6>
           <p class="mb-1"><strong>Size:</strong> ${item.size}</p>
-          <p class="mb-1"><strong>Duration:</strong> ${item.duration} day(s)</p>
-          <p class="mb-1"><strong>Price:</strong> RM${item.price} x ${item.duration} = RM${itemTotal}</p>
+          <p class="mb-1"><strong>Rent Dates:</strong> ${rentdates} (${duration} day(s))</p>
+          <p class="mb-1"><strong>Price:</strong> RM${item.price} x ${duration} = RM${itemTotal}</p>
           <button class="btn btn-sm btn-danger" onclick="removeFromCart(${index})">Remove</button>
         </div>
       `;
     });
 
-    cartTotal.textContent = `Total: RM${total}`;
+    cartTotal.innerHTML = `Total: RM${total}<br><button class="btn btn-sm btn-warning">Checkout</button>`;
   }
 
   function removeFromCart(index) {
