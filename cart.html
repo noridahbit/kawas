@@ -2,8 +2,8 @@
 <html lang="ms">
 <head>
   <meta charset="UTF-8">
+  <title>Checkout - Wakasku</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Wakasku - Sewa Pakaian Tradisional</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -15,292 +15,195 @@
 <!-- Daterangepicker JS -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 </head>
-<!-- Modal -->
-<div class="modal fade" id="addToCartModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Add to Cart</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <p id="modalProductName" class="fw-bold"></p>
-          <label class="form-label">Size:</label>
-          <select id="productSize" class="form-select mb-3">
-            <option value="S">S</option><option value="M">M</option>
-            <option value="L">L</option><option value="XL">XL</option>
-          </select>
-          <label for="start_date">Rental Dates</label>
-          <input type="text" name="daterange" id="daterange" class="form-control rounded-3" placeholder="Rental Dates" required>
-          
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button class="btn btn-primary" onclick="addToCart()">Confirm</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="cartModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-end modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Your Cart</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div id="cartItems"></div>
-          <div id="cartTotal" class="text-end mt-3 fs-5 fw-bold text-primary"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  
-  
 <body style="background-color:#D44F27">
-
-    <nav class="navbar navbar-expand-lg navbar-light ">
-        <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="#!"><img class="card-img-top" src="logo_elob.jpeg" alt="..." style="height: 30px"/></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">All Products</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                            <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                        </ul>
-                    </li>
-                </ul>
-           
-                    <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#cartModal" onclick="showCart()">
-                        <i class="bi-cart-fill me-1"></i>
-                        Cart
-                        <span class="badge bg-dark text-white ms-1 rounded-pill" id="totalcart">0</span>
-                    </button>
-            </div>
-        </div>
-    </nav>
-<section class="py-5" style="background-color: #DCD8D3;">
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row justify-content-center">
-            <div class="col md-3">
-                <div class="card h-100" style="background-color:transparent">
-                    <!-- Product image-->
-                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                    <img class="card-img-top" src="baju.jpeg" style="width: 100%;
-                    height: 200px; /* or any fixed height you want */
-                    object-fit: cover;" />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">Sinuangga</h5>
-
-                            <div class="d-flex justify-content-center small text-warning mb-2">
-                              <div class="bi-star-fill"></div>
-                              <div class="bi-star-fill"></div>
-                              <div class="bi-star-fill"></div>
-                              <div class="bi-star-fill"></div>
-                              <div class="bi-star-fill"></div>
-                          </div>
-                            <!-- Product price-->
-                            <span class="text-muted text-decoration-line-through">RM100</span>
-                            RM 98 / 1 DAY
-                        </div>
-                        <div class="text-center"><button class="btn btn-lg text-white rounded-3 "
-                          onclick="openModal('Sinuangga', 98)"><i style="color:#D44F27" class="bi bi-cart-plus"></i></button></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col md-3">
-              <div class="card h-100" style="background-color:transparent">
-                  <!-- Product image-->
-                  <img class="card-img-top" src="https://dummyimage.com/450x300/d9d9d9/fafafa&text=+" style="width: 100%;
-                  height: 200px; /* or any fixed height you want */
-                  object-fit: cover;" />
-                  <!-- Product details-->
-                  <div class="card-body p-4">
-                      <div class="text-center">
-                          <!-- Product name-->
-                          <h5 class="fw-bolder">Gaung</h5>
-
-                          <div class="d-flex justify-content-center small text-warning mb-2">
-                            <div class="bi-star-fill"></div>
-                            <div class="bi-star-fill"></div>
-                            <div class="bi-star-fill"></div>
-                            <div class="bi-star-fill"></div>
-                            <div class="bi-star-fill"></div>
-                        </div>
-                          <!-- Product price-->
-                          RM 100 / 1 DAY
-                      </div>
-                      <div class="text-center"><button class="btn btn-lg text-white rounded-3 "
-                        onclick="openModal('Gaung', 100)"><i style="color:#D44F27" class="bi bi-cart-plus"></i></button></div>
-                  </div>
-              </div>
-          </div>
-          <div class="col md-3">
-            <div class="card h-100" style="background-color:transparent">
-                <!-- Product image-->
-                <img class="card-img-top" src="https://dummyimage.com/450x300/d9d9d9/fafafa&text=+" style="width: 100%;
-                height: 200px; /* or any fixed height you want */
-                object-fit: cover;" />
-                <!-- Product details-->
-                <div class="card-body p-4">
-                    <div class="text-center">
-                        <!-- Product name-->
-                        <h5 class="fw-bolder">Tinohian</h5>
-
-                        <div class="d-flex justify-content-center small text-warning mb-2">
-                          <div class="bi-star-fill"></div>
-                          <div class="bi-star-fill"></div>
-                          <div class="bi-star-fill"></div>
-                          <div class="bi-star-fill"></div>
-                          <div class="bi-star-fill"></div>
-                      </div>
-                        <!-- Product price-->
-                        RM 100 / 1 DAY
-                    </div>
-                    <div class="text-center"><button class="btn btn-lg text-white rounded-3 "
-                      onclick="openModal('Tinohian', 100)"><i style="color:#D44F27" class="bi bi-cart-plus"></i></button></div>
-                </div>
-            </div>
-        </div>
-        <div class="col md-3">
-          <div class="card h-100" style="background-color:transparent">
-              <!-- Product image-->
-              <img class="card-img-top" src="https://dummyimage.com/450x300/d9d9d9/fafafa&text=+" style="width: 100%;
-              height: 200px; /* or any fixed height you want */
-              object-fit: cover;" />
-              <!-- Product details-->
-              <div class="card-body p-4">
-                  <div class="text-center">
-                      <!-- Product name-->
-                      <h5 class="fw-bolder">Gonob</h5>
-
-                      <div class="d-flex justify-content-center small text-warning mb-2">
-                        <div class="bi-star-fill"></div>
-                        <div class="bi-star-fill"></div>
-                        <div class="bi-star-fill"></div>
-                        <div class="bi-star-fill"></div>
-                        <div class="bi-star-fill"></div>
-                    </div>
-                      <!-- Product price-->
-                      RM 100 / 1 DAY
-                  </div>
-                  <div class="text-center"><button class="btn btn-lg text-white rounded-3 "
-                    onclick="openModal('Gonob', 100)"><i style="color:#D44F27" class="bi bi-cart-plus"></i></button></div>
-              </div>
-          </div>
-      </div>
+  <nav class="navbar navbar-expand-lg navbar-light ">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="#!"><img class="card-img-top" src="logo_elob.jpeg" alt="..." style="height: 30px;width: auto;"/></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">All Products</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                        <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                    </ul>
+                </li>
+            </ul>
+       
+                <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#cartModal" onclick="showCart()">
+                    <i class="bi-cart-fill me-1"></i>
+                    Cart
+                    <span class="badge bg-dark text-white ms-1 rounded-pill" id="totalcart">0</span>
+                </button>
         </div>
     </div>
-</section>
+</nav>
 
-  
+<div class="container my-5 py-5 px-4 px-lg-5 mt-5  card" style="background-color: #DCD8D3;">
+  <h2 class="mb-4"><i class="bi bi-cart-check"></i> Checkout</h2>
 
-<footer class="text-center py-4 mt-5 bg-light text-white">
-  <div class="container">
-    <small>&copy; 2025 Wakasku. Semua Hak Cipta Terpelihara.</small>
-  </div>
-</footer>
+  <div id="cartContainer" class="mb-4"></div>
+
+  <h5 class="mt-4">Renter's details</h5>
+  <form id="checkoutForm">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" class="form-control" id="name" >
+    </div>
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone Number</label>
+      <input type="tel" class="form-control" id="phone" >
+    </div>
+    <div class="mb-3">
+      <label for="location" class="form-label">Address</label>
+      <input type="text" class="form-control" id="address">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Shipping Option</label>
+      <select class="form-select" id="shipping" >
+        <option value="">-- Please choose --</option>
+        <option value="Standard Delivery">Standard Delivery</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Payment Method</label>
+      <select class="form-select" id="paymentMethod" >
+        <option value="">-- Please choose --</option>
+        <option value="cash">Cash</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-success w-100">
+      <i class="bi bi-credit-card me-2"></i> Confirm
+    </button>
+  </form>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-
-
-
 <script>
-    const kawascart = JSON.parse(localStorage.getItem("kawascart") || "[]");
 
-    document.getElementById("totalcart").textContent = kawascart.length;
-    let currentProduct = {};
-  
-    function openModal(name, price) {
-        currentProduct = { name, price };
-        document.getElementById("modalProductName").textContent = name;
-        const modal = new bootstrap.Modal(document.getElementById('addToCartModal'));
-        modal.show();
-        
-    }
-
-    $('.modal').on('shown.bs.modal', function () {
-      $('#daterange').daterangepicker({
-      opens: 'right',
-      locale: {
-        format: 'YYYY-MM-DD',
-        daysOfWeek: ['Ahad', 'Isn', 'Sel', 'Rab', 'Kha', 'Jum', 'Sab'],
-        monthNames: ['Jan', 'Feb', 'Mac', 'Apr', 'Mei', 'Jun', 'Jul', 'Ogo', 'Sep', 'Okt', 'Nov', 'Dis']
-      }
-    });
-
-    function removeFromCart(index) {
+  // Display Cart
+  function displayCart() {
     const cart = JSON.parse(localStorage.getItem("kawascart") || "[]");
-    cart.splice(index, 1);
-    localStorage.setItem("kawascart", JSON.stringify(cart));
-    showCart();
-  }
-  });
-  
-    function addToCart() {
-      const size = document.getElementById("productSize").value;
-      const duration = document.getElementById("daterange").value;
-      const cart = JSON.parse(localStorage.getItem("kawascart")) || [];
-  
-      cart.push({
-        name: currentProduct.name,
-        price: currentProduct.price,
-        size,
-        duration
-      });
-  
-      localStorage.setItem("kawascart", JSON.stringify(cart));
-      alert("Added to cart!");
-      const modal = bootstrap.Modal.getInstance(document.getElementById('addToCartModal'));
-      modal.hide();
-      document.getElementById("totalcart").textContent = JSON.parse(localStorage.getItem("kawascart") || "[]").length;
-    }
-
-    function showCart() {
-    const cart = JSON.parse(localStorage.getItem("kawascart") || "[]");
-    const cartItems = document.getElementById("cartItems");
-    const cartTotal = document.getElementById("cartTotal");
-
-    cartItems.innerHTML = "";
-    let total = 0;
+    const container = document.getElementById("cartContainer");
 
     if (cart.length === 0) {
-      cartItems.innerHTML = "<p class='text-muted'>Your cart is empty.</p>";
-      cartTotal.textContent = "";
+      container.innerHTML = '<div class="alert alert-info">Tiada item dalam troli.</div>';
+      document.getElementById("checkoutForm").style.display = "none";
       return;
     }
 
-    cart.forEach((item, index) => {
-      const itemTotal = item.price * item.duration;
-      total += itemTotal;
+    let html = '<div class="list-group">';
+    let total = 0;
 
-      cartItems.innerHTML += `
-        <div class="border-bottom pb-2 mb-3">
-          <h6>${item.name}</h6>
-          <p class="mb-1"><strong>Size:</strong> ${item.size}</p>
-          <p class="mb-1"><strong>Duration:</strong> ${item.duration} day(s)</p>
-          <p class="mb-1"><strong>Price:</strong> RM${item.price} x ${item.duration} = RM${itemTotal}</p>
-          <button class="btn btn-sm btn-danger" onclick="removeFromCart(${index})">Remove</button>
+    cart.forEach(item => {
+      let rentdates= item.duration;
+      let [startStr, endStr] = rentdates.split(" - ");
+
+      // 2. Convert to moment objects
+      let start = moment(startStr, "YYYY-MM-DD");
+      let end = moment(endStr, "YYYY-MM-DD");
+
+      // 3. Calculate duration (inclusive)
+      const duration = end.diff(start, 'days') + 1;
+
+      const subtotal = item.price * (duration || 1);
+      total += subtotal;
+
+      html += `
+        <div class="list-group-item d-flex gap-3">
+          <div class="flex-grow-1">
+            <h6 class="mb-1">${item.name}</h6>
+            <p class="mb-1">Size: ${item.size} | Rental Dates: ${item.duration || 1} </p>
+            <small>RM${item.price} x ${item.duration || 1} = <strong>RM${subtotal}</strong></small>
+          </div>
         </div>
       `;
     });
 
-    cartTotal.textContent = `Total: RM${total}`;
+    html += `
+      </div>
+      <div class="text-end mt-3">
+        <h5>Total: <strong>RM${total}</strong></h5>
+      </div>
+    `;
+
+    container.innerHTML = html;
+
+    // Set daterange if available
+    const dateRange = localStorage.getItem("kawasdate");
+    if (dateRange) {
+      document.getElementById("daterange").value = dateRange;
+    }
   }
 
+  // Toggle bank details
+  document.getElementById("paymentMethod").addEventListener("change", function () {
+    const bankSection = document.getElementById("bankDetails");
+    if (this.value === "bank") {
+      bankSection.classList.remove("d-none");
+    } else {
+      bankSection.classList.add("d-none");
+    }
+  });
+
+  // Submit checkout
+  function generateBookingNumber() {
+    const now = new Date();
+    return 'BK' + now.getFullYear().toString().slice(2) +
+      (now.getMonth() + 1).toString().padStart(2, '0') +
+      now.getDate().toString().padStart(2, '0') +
+      now.getTime().toString().slice(-4);
+  }
+
+  // Handle form submit
+  document.getElementById("checkoutForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const shipping = document.getElementById("shipping").value.trim();
+    const paymentMethod = document.getElementById("paymentMethod").value;
+    const cart = JSON.parse(localStorage.getItem("kawascart") || "[]");
+
+    if (!name || !phone || !location || !paymentMethod) {
+      alert("Please complete all  fields.");
+      return;
+    }
+    const bookingNumber = generateBookingNumber();
+
+    const bookingData = {
+      name,
+      phone,
+      address,
+      shipping,
+      paymentMethod,
+      bookingNumber,
+      items: cart,
+      time: new Date().toISOString()
+    };
+
+    // Save booking data to localStorage (array of all bookings)
+    const bookings = JSON.parse(localStorage.getItem("kawasbookings") || "[]");
+    bookings.push(bookingData);
+    localStorage.setItem("kawasbookings", JSON.stringify(bookings));
+
+    localStorage.removeItem("kawascart");
+    const orders = JSON.parse(localStorage.getItem("kawasorders") || "[]");
+    orders.push(bookingData);
+    localStorage.setItem("kawasorders", JSON.stringify(orders));
+    alert(
+      `Thank you, ${name}!\n\nBooking Number: ${bookingNumber}\nAddress: ${address}\n\n. We will deliver to you soon`
+    );
+
+    window.location.href = "order.html"; // Change to your main page
+  });
+  displayCart();
 </script>
-  
+</body>
+</html>
